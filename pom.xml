@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ar.com.intrale.cloud</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.1</version> 
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>io.micronaut</groupId>
+    <artifactId>micronaut-parent</artifactId>
+    <version>2.0.0</version>
+  </parent>
+
+  <properties>
+    <jdk.version>11</jdk.version>
+    <maven.compiler.target>${jdk.version}</maven.compiler.target>
+    <maven.compiler.source>${jdk.version}</maven.compiler.source>
+    
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    
+    <micronaut.version>2.0.0</micronaut.version>
+	<exec.mainClass>ar.com.intrale.cloud.Runner</exec.mainClass>
+	
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
+    
+    <aws-lambda-java-events.version>3.1.0</aws-lambda-java-events.version>
+    
+    <mockito-junit-jupiter.version>3.4.0</mockito-junit-jupiter.version>
+    <nimbus-jose-jwt.version>8.16</nimbus-jose-jwt.version>
+    
+    <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+    <test-covered-ratio>0.99</test-covered-ratio>
+  
+  	<aws-java-sdk.version>1.11.762</aws-java-sdk.version>
+  
+  	<cognito.adminAccessKey>${env.COGNITO_ADMIN_ACCESS_KEY}</cognito.adminAccessKey>
+	<cognito.adminSecretKey>${env.COGNITO_ADMIN_SECRET_KEY}</cognito.adminSecretKey>    
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>jcenter.bintray.com</id>
+      <url>https://jcenter.bintray.com</url>
+    </repository>
+    <repository>
+	  <id>github</id>
+	  <url>https://maven.pkg.github.com/llarreta/intrale</url>
+	</repository>
+  </repositories>
+  <distributionManagement>
+	<repository>
+	  <id>github</id>
+	  <name>GitHub llarreta Apache Maven Packages</name>
+	  <url>https://maven.pkg.github.com/llarreta/intrale</url>
+	</repository>
+  </distributionManagement>
+  
+    <dependencies>
+	    <dependency>
+	      <groupId>io.micronaut</groupId>
+	      <artifactId>micronaut-inject</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>io.micronaut</groupId>
+	      <artifactId>micronaut-validation</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+	    
+	    <!-- Necesarios para microservicios locales (No serverless) -->
+	    <dependency>
+	      <groupId>io.micronaut</groupId>
+	      <artifactId>micronaut-http-server-netty</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>io.micronaut</groupId>
+	      <artifactId>micronaut-http-client</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+	      <!-- FIN Necesarios para microservicios locales (No serverless) -->  
+	    <dependency>
+	      <groupId>io.micronaut</groupId>
+	      <artifactId>micronaut-runtime</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>javax.annotation</groupId>
+	      <artifactId>javax.annotation-api</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>io.micronaut.aws</groupId>
+	      <artifactId>micronaut-function-aws</artifactId>
+	      <scope>compile</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>ch.qos.logback</groupId>
+	      <artifactId>logback-classic</artifactId>
+	      <scope>runtime</scope>
+	    </dependency>
+	    
+	    
+	    
+	    <dependency>
+	      <groupId>org.junit.jupiter</groupId>
+	      <artifactId>junit-jupiter-api</artifactId>
+	      <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.junit.jupiter</groupId>
+	      <artifactId>junit-jupiter-engine</artifactId>
+	      <scope>test</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>io.micronaut.test</groupId>
+	      <artifactId>micronaut-test-junit5</artifactId>
+	      <scope>test</scope>
+	    </dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>${mockito-junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-events</artifactId>
+			<version>${aws-lambda-java-events.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.nimbusds</groupId>
+			<artifactId>nimbus-jose-jwt</artifactId>
+			<version>${nimbus-jose-jwt.version}</version>
+		</dependency>
+	    
+	    
+    </dependencies>
+
+
+</project>
