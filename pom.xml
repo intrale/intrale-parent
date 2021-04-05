@@ -36,6 +36,7 @@
     <test-covered-ratio>0.99</test-covered-ratio>
   
   	<aws-java-sdk.version>1.11.762</aws-java-sdk.version>
+  	<aws-java-sdk-dynamodb.version>1.11.812</aws-java-sdk-dynamodb.version>
   
   	<cognito.adminAccessKey>${env.COGNITO_ADMIN_ACCESS_KEY}</cognito.adminAccessKey>
 	<cognito.adminSecretKey>${env.COGNITO_ADMIN_SECRET_KEY}</cognito.adminSecretKey>    
