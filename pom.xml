@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.intrale.cloud</groupId>
   <artifactId>parent</artifactId>
-  <version>0.4.3</version> 
+  <version>0.4.4</version> 
   <packaging>pom</packaging>
 
   <parent>
@@ -31,6 +31,8 @@
     
     <mockito-junit-jupiter.version>3.4.0</mockito-junit-jupiter.version>
     <nimbus-jose-jwt.version>8.16</nimbus-jose-jwt.version>
+    
+    <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     
     <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
     <test-covered-ratio>0.99</test-covered-ratio>
@@ -139,6 +141,12 @@
 			<artifactId>nimbus-jose-jwt</artifactId>
 			<version>${nimbus-jose-jwt.version}</version>
 		</dependency>
+		
+	    <dependency>
+	        <groupId>org.mapstruct</groupId>
+	        <artifactId>mapstruct</artifactId>
+	        <version>${org.mapstruct.version}</version>
+	    </dependency>
 	    
 	    
     </dependencies>
