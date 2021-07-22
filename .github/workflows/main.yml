@@ -29,5 +29,5 @@ jobs:
         owner: 'llarreta'
         repo: 'intrale'
         package-name: 'ar.com.intrale.cloud.parent'
-        num-old-versions-to-delete: 3
-        token: ${{ secrets.MAVEN_TEST_TOKEN }}
+        num-old-versions-to-delete: 1
+        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
