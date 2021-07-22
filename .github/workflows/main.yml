@@ -30,4 +30,4 @@ jobs:
         repo: 'intrale'
         package-name: 'ar.com.intrale.cloud.parent'
         num-old-versions-to-delete: 3
-        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+        token: ${{ secrets.MAVEN_TEST_TOKEN }}
