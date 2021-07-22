@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.intrale.cloud</groupId>
   <artifactId>parent</artifactId>
-  <version>0.5.4</version> 
+  <version>0.6</version> 
   <packaging>pom</packaging>
 
   <parent>
@@ -42,6 +42,9 @@
   
   	<cognito.adminAccessKey>${env.COGNITO_ADMIN_ACCESS_KEY}</cognito.adminAccessKey>
 	<cognito.adminSecretKey>${env.COGNITO_ADMIN_SECRET_KEY}</cognito.adminSecretKey>    
+	
+	<commons-io.version>2.10.0</commons-io.version>
+	<commons-fileupload.version>1.4</commons-fileupload.version>
   </properties>
 
   <repositories>
