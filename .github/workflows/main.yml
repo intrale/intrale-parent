@@ -27,8 +27,8 @@ jobs:
         echo "ACTUAL_VERSION: ${ACTUAL_VERSION}"
         echo "$(($ACTUAL_VERSION+1))" >> $ACTUAL_VERSION
         echo "ACTUAL_VERSION: ${ACTUAL_VERSION}"
-        echo "$(($VERSION_PREFIX))">$VERSION
-        echo "$(($ACTUAL_VERSION))">$VERSION
+        echo "${VERSION_PREFIX}">$VERSION
+        echo "${$ACTUAL_VERSION}">$VERSION
          echo "VERSION: ${VERSION}"
         echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
         mvn deploy
