@@ -24,12 +24,14 @@ jobs:
         MAVEN_SERVER_PASSWORD: ${{ secrets.MAVEN_SERVER_PASSWORD }}
       run: |
         mkdir -p ~/.m2
-        echo "VERSION_PREFIX: ${VERSION_PREFIX}"
-        echo "PATCH_VERSION: ${PATCH_VERSION}"
-        echo "${VERSION_PREFIX}" >> $VERSION
-        echo "VERSION: ${VERSION}"
         echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
         mvn deploy
+    - name: Version definition
+      run: |
+        echo "action_state=yellow" >> $GITHUB_ENV
+    - name: Version use
+      run: |
+        echo "action_state:${{ env.action_state }}"
     - uses: actions/delete-package-versions@v1
       with:
         owner: 'llarreta'
