@@ -54,3 +54,11 @@ jobs:
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
         org: true
         visibility: 'all'
+    - uses: hmanzur/actions-set-secret@v2.0.0
+      with:
+        name: 'VERSION'
+        value: ${{ env.VERSION }}
+        repository: 'intrale'
+        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+        org: true
+        visibility: 'all'
