@@ -23,7 +23,7 @@ jobs:
         MAVEN_SERVER_PASSWORD: ${{ secrets.MAVEN_SERVER_PASSWORD }}
       run: |
         mkdir -p ~/.m2
-        echo ${ACTUAL_VERSION}
+        echo "ACTUAL_VERSION: ${ACTUAL_VERSION}"
         echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
         mvn deploy
     - uses: actions/delete-package-versions@v1
