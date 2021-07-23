@@ -16,6 +16,12 @@ jobs:
           java-version: '11' # The JDK version to make available on the path.
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
           architecture: x64 # (x64 or x86) - defaults to x64
+    - name: Patch Version definition
+      env:
+        VERSION_PREFIX: ${{ secrets.VERSION_PREFIX }}
+        PATCH_VERSION: ${{ secrets.PATCH_VERSION }}
+      run: |
+        echo "PATCH_VERSION=${PATCH_VERSION} + 1" >> $GITHUB_ENV
     - name: Version definition
       env:
         VERSION_PREFIX: ${{ secrets.VERSION_PREFIX }}
@@ -40,3 +46,11 @@ jobs:
         package-name: 'ar.com.intrale.cloud.parent'
         num-old-versions-to-delete: 1
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+    - uses: hmanzur/actions-set-secret@v2.0.0
+      with:
+        name: 'PATCH_VERSION'
+        value: ${{ env.PATCH_VERSION }}
+        repository: 'intrale'
+        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+        org: true
+        visibility: 'all'
