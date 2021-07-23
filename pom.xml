@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.intrale.cloud</groupId>
   <artifactId>parent</artifactId>
-  <version>0.6</version> 
+  <version>${env.ACTUAL_VERSION}</version> 
   <packaging>pom</packaging>
 
   <parent>
