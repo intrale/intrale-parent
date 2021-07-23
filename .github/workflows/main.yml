@@ -18,10 +18,10 @@ jobs:
           architecture: x64 # (x64 or x86) - defaults to x64
     - name: Version definition
       run: |
-        echo "action_state=yellow" >> $GITHUB_ENV
+        echo "VERSION=yellow" >> $GITHUB_ENV
     - name: Version use
       run: |
-        echo "action_state:${{ env.action_state }}"
+        echo "VERSION:${{ env.VERSION }}"
     - name: Deploy to Github Package Registry
       env:
         ACTUAL_VERSION: ${{ secrets.ACTUAL_VERSION }}
