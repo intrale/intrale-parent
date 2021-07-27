@@ -63,7 +63,8 @@ jobs:
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
         org: true
         visibility: 'all'
-    - name: PING
+    - name: Call intrale-commons
+      if: github.event.action != 'ping'
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
