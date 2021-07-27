@@ -71,7 +71,7 @@ jobs:
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.MAVEN_SERVER_PASSWORD }} \
           --data '{"event_type": "ping", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
-     - name: Response to intrale-commons
+    - name: Response to intrale-commons
       if: github.event.action == 'ping'
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
