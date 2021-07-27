@@ -65,7 +65,7 @@ jobs:
         org: true
         visibility: 'all'
     - name: Call intrale-commons
-      if: github.event.action == 'push'
+      if: (github.event.action != 'ping') && (github.event.action != 'pong') 
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
