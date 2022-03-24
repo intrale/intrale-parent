@@ -140,6 +140,13 @@
 			<version>${aws-lambda-java-events.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-dynamodb</artifactId>
+			<version>${aws-java-sdk-dynamodb.version}</version>
+	 	</dependency>
+		
+		
+		<dependency>
 			<groupId>com.nimbusds</groupId>
 			<artifactId>nimbus-jose-jwt</artifactId>
 			<version>${nimbus-jose-jwt.version}</version>

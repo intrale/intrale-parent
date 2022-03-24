@@ -45,7 +45,7 @@ jobs:
       with:
         owner: 'llarreta'
         repo: 'intrale'
-        package-name: 'ar.com.intrale.cloud.parent'
+        package-name: 'ar.com.intrale.parent'
         num-old-versions-to-delete: 1
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
     - uses: hmanzur/actions-set-secret@v2.0.0
