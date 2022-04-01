@@ -32,22 +32,6 @@ jobs:
     - name: Version use
       run: |
         echo "VERSION:${{ env.VERSION }}"
-    - name: Deploy to Github Package Registry
-      env:
-        MAVEN_SERVER_USERNAME: ${{ secrets.MAVEN_SERVER_USERNAME }}
-        MAVEN_SERVER_PASSWORD: ${{ secrets.MAVEN_SERVER_PASSWORD }}
-      run: |
-        sed -i "s/DEV/$VERSION/gi" pom.xml
-        mkdir -p ~/.m2
-        echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
-        mvn deploy
-    - uses: actions/delete-package-versions@v3
-      with:
-        owner: 'llarreta'
-        repo: 'intrale'
-        package-name: 'ar.com.intrale.parent'
-        num-old-versions-to-delete: 1
-        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
     - uses: hmanzur/actions-set-secret@v2.0.0
       with:
         name: 'PATCH_VERSION'
@@ -64,6 +48,22 @@ jobs:
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
         org: true
         visibility: 'all'
+    - name: Deploy to Github Package Registry
+      env:
+        MAVEN_SERVER_USERNAME: ${{ secrets.MAVEN_SERVER_USERNAME }}
+        MAVEN_SERVER_PASSWORD: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+      run: |
+        sed -i "s/DEV/$VERSION/gi" pom.xml
+        mkdir -p ~/.m2
+        echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
+        mvn deploy
+    - uses: actions/delete-package-versions@v3
+      with:
+        owner: 'llarreta'
+        repo: 'intrale'
+        package-name: 'ar.com.intrale.parent'
+        num-old-versions-to-delete: 1
+        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
     - name: Call intrale-commons
       if: github.event.action != 'ping_child' 
       run: |
