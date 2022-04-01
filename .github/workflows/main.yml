@@ -32,22 +32,6 @@ jobs:
     - name: Version use
       run: |
         echo "VERSION:${{ env.VERSION }}"
-    - uses: hmanzur/actions-set-secret@v2.0.0
-      with:
-        name: 'PATCH_VERSION'
-        value: ${{ env.PATCH_VERSION }}
-        repository: 'intrale'
-        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
-        org: true
-        visibility: 'all'
-    - uses: hmanzur/actions-set-secret@v2.0.0
-      with:
-        name: 'VERSION'
-        value: ${{ env.VERSION }}
-        repository: 'intrale'
-        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
-        org: true
-        visibility: 'all'
     - name: Deploy to Github Package Registry
       env:
         MAVEN_SERVER_USERNAME: ${{ secrets.MAVEN_SERVER_USERNAME }}
@@ -64,6 +48,22 @@ jobs:
         package-name: 'ar.com.intrale.parent'
         num-old-versions-to-delete: 1
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+    - uses: hmanzur/actions-set-secret@v2.0.0
+      with:
+        name: 'PATCH_VERSION'
+        value: ${{ env.PATCH_VERSION }}
+        repository: 'intrale'
+        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+        org: true
+        visibility: 'all'
+    - uses: hmanzur/actions-set-secret@v2.0.0
+      with:
+        name: 'VERSION'
+        value: ${{ env.VERSION }}
+        repository: 'intrale'
+        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
+        org: true
+        visibility: 'all'        
     - name: Call intrale-commons
       if: github.event.action != 'ping_child' 
       run: |
