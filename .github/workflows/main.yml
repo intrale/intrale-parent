@@ -26,23 +26,25 @@ jobs:
       run: |
         echo "REV_PARENT=$(($REV_PARENT+1))" >> $GITHUB_ENV
     - name: Version definition step 2
-      if: (${{ REV_PARENT }} > 21) 
       env:
         REL_PARENT: ${{ secrets.REL_PARENT }}
         EVO_PARENT: ${{ secrets.EVO_PARENT }}
         REV_PARENT: ${{ secrets.REV_PARENT }}
       run: |
-        echo "REV_PARENT=0" >> $GITHUB_ENV 
-        echo "EVO_PARENT=$(($EVO_PARENT+1))" >> $GITHUB_ENV
+        if [[ $REV_PARENT > 21 ]]; then
+          echo "REV_PARENT=0" >> $GITHUB_ENV 
+          echo "EVO_PARENT=$(($EVO_PARENT+1))" >> $GITHUB_ENV
+        fi
     - name: Version definition step 3
-      if: (${{ EVO_PARENT }} > 11) 
       env:
         REL_PARENT: ${{ secrets.REL_PARENT }}
         EVO_PARENT: ${{ secrets.EVO_PARENT }}
         REV_PARENT: ${{ secrets.REV_PARENT }}
       run: |
-        echo "EVO_PARENT=0" >> $GITHUB_ENV 
-        echo "REL_PARENT=$(($REL_PARENT+1))" >> $GITHUB_ENV
+        if [[ $EVO_PARENT > 11 ]]; then
+          echo "EVO_PARENT=0" >> $GITHUB_ENV 
+          echo "REL_PARENT=$(($REL_PARENT+1))" >> $GITHUB_ENV
+        fi
     - name: Version definition step 4
       env:
         REL_PARENT: ${{ secrets.REL_PARENT }}
