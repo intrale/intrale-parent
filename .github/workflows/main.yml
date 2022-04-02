@@ -33,7 +33,11 @@ jobs:
           echo "EVO_PARENT=0" >> $GITHUB_ENV 
           echo "REL_PARENT=$(($REL_PARENT+1))" >> $GITHUB_ENV
         fi
-        echo "VER_PARENT='${REL_PARENT}.${EVO_PARENT}.${REV_PARENT}'" >> $GITHUB_ENV
+        echo "VER_PARENT='${REL_PARENT}'" >> $GITHUB_ENV
+        echo "VER_PARENT+='.'" >> $GITHUB_ENV
+        echo "VER_PARENT+='${EVO_PARENT}'" >> $GITHUB_ENV
+        echo "VER_PARENT+='.'" >> $GITHUB_ENV
+        echo "VER_PARENT+='${REV_PARENT}'" >> $GITHUB_ENV
     - name: Save REL_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
       with:
@@ -68,7 +72,7 @@ jobs:
         value: ${{ env.VER_PARENT }}
         repository: 'intrale'
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
-        org: true
+        org: true   
         visibility: 'all'        
     - name: Deploy to Github Package Registry
       env:
