@@ -4,12 +4,11 @@ on:
   push:
     branches: [ main ]
   repository_dispatch:
-  
 jobs:
   build: 
 
     runs-on: ubuntu-latest
- 
+
     steps:
     - name: Download source code
       uses: actions/checkout@v1
