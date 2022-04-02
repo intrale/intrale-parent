@@ -18,39 +18,21 @@ jobs:
           java-version: '11' # The JDK version to make available on the path.
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
           architecture: x64 # (x64 or x86) - defaults to x64
-    - name: Version definition step 1
+    - name: Version definition
       env:
         REL_PARENT: ${{ secrets.REL_PARENT }}
         EVO_PARENT: ${{ secrets.EVO_PARENT }}
         REV_PARENT: ${{ secrets.REV_PARENT }}
       run: |
         echo "REV_PARENT=$(($REV_PARENT+1))" >> $GITHUB_ENV
-    - name: Version definition step 2
-      env:
-        REL_PARENT: ${{ secrets.REL_PARENT }}
-        EVO_PARENT: ${{ secrets.EVO_PARENT }}
-        REV_PARENT: ${{ secrets.REV_PARENT }}
-      run: |
         if [[ $REV_PARENT > 21 ]]; then
           echo "REV_PARENT=0" >> $GITHUB_ENV 
           echo "EVO_PARENT=$(($EVO_PARENT+1))" >> $GITHUB_ENV
         fi
-    - name: Version definition step 3
-      env:
-        REL_PARENT: ${{ secrets.REL_PARENT }}
-        EVO_PARENT: ${{ secrets.EVO_PARENT }}
-        REV_PARENT: ${{ secrets.REV_PARENT }}
-      run: |
         if [[ $EVO_PARENT > 11 ]]; then
           echo "EVO_PARENT=0" >> $GITHUB_ENV 
           echo "REL_PARENT=$(($REL_PARENT+1))" >> $GITHUB_ENV
         fi
-    - name: Version definition step 4
-      env:
-        REL_PARENT: ${{ secrets.REL_PARENT }}
-        EVO_PARENT: ${{ secrets.EVO_PARENT }}
-        REV_PARENT: ${{ secrets.REV_PARENT }}
-      run: |
         echo "VER_PARENT=${REL_PARENT}.${EVO_PARENT}.${REV_PARENT}" >> $GITHUB_ENV
     - name: Save REL_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0

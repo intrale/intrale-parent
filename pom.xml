@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ar.com.intrale</groupId>
   <artifactId>parent</artifactId>
-  <version>hidro.one.alpha</version> 
+  <version>DEV_PARENT</version> 
   <packaging>pom</packaging>
 
   <parent>
