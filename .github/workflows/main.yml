@@ -88,6 +88,13 @@ jobs:
       with:
         tag: "VER_${{ env.VER_PARENT_TEXT }}"
         message: "VER_${{ env.VER_PARENT_TEXT }}"
+    - uses: actions/delete-package-versions@v3
+      with:
+        owner: 'llarreta'
+        repo: 'intrale'
+        package-name: 'ar.com.intrale.parent'
+        min-versions-to-keep: 3
+        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}        
     - name: Call intrale-commons recompile with new version of parent
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
