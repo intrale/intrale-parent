@@ -33,6 +33,8 @@ jobs:
           echo "EVO_PARENT=0" >> $GITHUB_ENV 
           echo "REL_PARENT=$(($REL_PARENT+1))" >> $GITHUB_ENV
         fi
+        echo "REL_PARENT=$(($REL_PARENT))" >> $GITHUB_ENV
+        echo "EVO_PARENT=$(($EVO_PARENT))" >> $GITHUB_ENV
         echo "VER_PARENT=${REL_PARENT}.${EVO_PARENT}.${REV_PARENT}" >> $GITHUB_ENV
     - name: Save REL_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
