@@ -83,9 +83,9 @@ jobs:
         mvn -e -X deploy
     - name: Tag Branch  
       uses: rickstaa/action-create-tag@v1
-        with:
-          tag: "latest"
-          message: "Latest release"
+      with:
+        tag: "latest"
+        message: "Latest release"
     - name: Call intrale-commons recompile with new version of parent
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
