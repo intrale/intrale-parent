@@ -37,6 +37,7 @@ jobs:
         echo "REL_PARENT=$(($REL_PARENT))" >> $GITHUB_ENV
         echo "EVO_PARENT=$(($EVO_PARENT))" >> $GITHUB_ENV
         echo "VER_PARENT=${REL_PARENT}.${EVO_PARENT}.${REV_PARENT}" >> $GITHUB_ENV
+        echo "VER_PARENT_TEXT=${REL_PARENT}_${EVO_PARENT}_${REV_PARENT}" >> $GITHUB_ENV
     - name: Save REL_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
       with:
@@ -85,8 +86,8 @@ jobs:
     - name: Tag Branch  
       uses: rickstaa/action-create-tag@v1
       with:
-        tag: "VER:${{ env.VER_PARENT }}"
-        message: "VER:${{ env.VER_PARENT }}"
+        tag: "VER_${{ env.VER_PARENT_TEXT }}"
+        message: "VER_${{ env.VER_PARENT_TEXT }}"
     - name: Call intrale-commons recompile with new version of parent
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
