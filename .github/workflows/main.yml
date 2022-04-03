@@ -85,8 +85,8 @@ jobs:
     - name: Tag Branch  
       uses: rickstaa/action-create-tag@v1
       with:
-        tag: "latest"
-        message: "Latest release"
+        tag: "VER:${{ env.VER_PARENT }}"
+        message: "VER:${{ env.VER_PARENT }}"
     - name: Call intrale-commons recompile with new version of parent
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
