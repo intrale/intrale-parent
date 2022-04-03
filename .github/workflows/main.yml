@@ -11,9 +11,9 @@ jobs:
 
     steps:
     - name: Download source code
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
     - name: JDK Setup
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v2
       with:
           java-version: '11' # The JDK version to make available on the path.
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
@@ -81,6 +81,11 @@ jobs:
         mkdir -p ~/.m2
         echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
         mvn -e -X deploy
+    - name: Tag Branch  
+      uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "latest"
+          message: "Latest release"
     - name: Call intrale-commons recompile with new version of parent
       run: |
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
