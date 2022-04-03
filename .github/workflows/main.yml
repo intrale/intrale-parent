@@ -101,4 +101,4 @@ jobs:
          curl -X POST https://api.github.com/repos/intrale/intrale-commons/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.MAVEN_SERVER_PASSWORD }} \
-          --data '{"event_type": "ping_parent", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+          --data '{"event_type": "parent_new_version", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
