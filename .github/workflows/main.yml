@@ -21,12 +21,12 @@ jobs:
           architecture: x64 # (x64 or x86) - defaults to x64
     - name: New Version definition
       run: |
-          echo 'VERSION_JSON<<EOF' >> $GITHUB_ENV
-          cat ./version.json >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV    
-          echo '${{ fromJson(env.VERSION_JSON).release }}'
-          echo '${{ fromJson(env.VERSION_JSON).version }}'
-          echo '${{ fromJson(env.VERSION_JSON).revision }}'
+        echo 'VERSION_JSON<<EOF' >> $GITHUB_ENV
+        cat ./version.json >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV    
+        echo '${{ fromJson(env.VERSION_JSON).release }}'
+        echo '${{ fromJson(env.VERSION_JSON).version }}'
+        echo '${{ fromJson(env.VERSION_JSON).revision }}'
     - name: Version definition
       env:
         REL_PARENT: ${{ secrets.REL_PARENT }}
