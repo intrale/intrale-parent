@@ -21,8 +21,9 @@ jobs:
           architecture: x64 # (x64 or x86) - defaults to x64
     - name: New Version definition
       run: |
-         echo "VERSION_JSON=`cat ./version.json`" >> $GITHUB_ENV
-         echo "${VERSION_JSON}"
+         versionJson=`cat ./version.json`
+         echo "$((versionJson))"
+         echo "VERSION_JSON=$((versionJson))" >> $GITHUB_ENV
     - name: Version definition
       env:
         REL_PARENT: ${{ secrets.REL_PARENT }}
