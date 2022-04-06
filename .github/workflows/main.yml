@@ -20,7 +20,6 @@ jobs:
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
           architecture: x64 # (x64 or x86) - defaults to x64
     - name: New Version definition
-      env:
       run: |
           echo 'VERSION_JSON<<EOF' >> $GITHUB_ENV
           cat ./version.json >> $GITHUB_ENV
