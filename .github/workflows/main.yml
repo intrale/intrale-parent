@@ -18,7 +18,7 @@ jobs:
           java-version: '11' # The JDK version to make available on the path.
           distribution: 'temurin'
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
-          architecture: x64 # (x64 or x86) - defaults to x64
+          architecture: x64 # (x64 or x86) - defaults to x64    
     - name: New Version definition
       run: |
          versionJson=`cat ./version.json`
@@ -27,7 +27,7 @@ jobs:
          versionJson="${versionJson//$'\n'/'%0A'}"
          versionJson="${versionJson//$'\r'/'%0D'}"
          echo "Mostrando valor version"
-         echo '${{ fromJson(versionJson).version }}'
+         echo '${{ fromJson($versionJson).version }}'
          echo "Mostrando Json"
          echo "$((versionJson))"
          echo "Despues de mostrar Json"
