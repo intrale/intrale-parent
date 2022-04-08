@@ -33,8 +33,11 @@ jobs:
       run: |
         echo "VERSION_TARGET=${VERSION}.${COMPILE_NUMBER}" >> $GITHUB_ENV
     - name: Tag definition
+      env:
+        VERSION: ${{ env.VERSION }}
+        COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}    
       run: |
-        echo "TAG=${env.VERSION}_${env.COMPILE_NUMBER}" >> $GITHUB_ENV
+        echo "TAG=${VERSION}_${COMPILE_NUMBER}" >> $GITHUB_ENV
     - name: Save VER_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
       with:
