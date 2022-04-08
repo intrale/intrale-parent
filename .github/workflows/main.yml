@@ -27,8 +27,11 @@ jobs:
          COMPILE_NUMBER=`cat ./compile.number`
          echo "COMPILE_NUMBER=$(($COMPILE_NUMBER+1))" >> $GITHUB_ENV
     - name: Version target definition
+      env:
+        VERSION: ${{ env.VERSION }}
+        COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}
       run: |
-        echo "VERSION_TARGET=${env.VERSION}.${env.COMPILE_NUMBER}" >> $GITHUB_ENV
+        echo "VERSION_TARGET=${VERSION}.${COMPILE_NUMBER}" >> $GITHUB_ENV
     - name: Tag definition
       run: |
         echo "TAG=${env.VERSION}_${env.COMPILE_NUMBER}" >> $GITHUB_ENV
