@@ -22,7 +22,9 @@ jobs:
     - name: New Version definition
       run: |
          versionJson=`cat ./version.json`
+         echo "Mostrando Json"
          echo "$((versionJson))"
+         echo "Despues de mostrar Json"
          echo "VERSION_JSON=$((versionJson))" >> $GITHUB_ENV
     - name: Version definition
       env:
