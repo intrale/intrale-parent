@@ -26,12 +26,15 @@ jobs:
          versionJson="${versionJson//'%'/'%25'}"
          versionJson="${versionJson//$'\n'/'%0A'}"
          versionJson="${versionJson//$'\r'/'%0D'}"
+         echo "Mostrando valor version"
+         echo '${{ fromJson(versionJson).version }}'
          echo "Mostrando Json"
          echo "$((versionJson))"
          echo "Despues de mostrar Json"
          echo "VERSION_JSON=$((versionJson))" >> $GITHUB_ENV
     - name: Version definition
       env:
+        REL_PARENT: ${{ secrets.REL_PARENT }}
         REL_PARENT: ${{ secrets.REL_PARENT }}
         EVO_PARENT: ${{ secrets.EVO_PARENT }}
         REV_PARENT: ${{ secrets.REV_PARENT }}
