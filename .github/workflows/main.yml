@@ -22,6 +22,10 @@ jobs:
     - name: New Version definition
       run: |
          versionJson=`cat ./version.json`
+         echo "Fix Json"
+         versionJson="${versionJson//'%'/'%25'}"
+         versionJson="${versionJson//$'\n'/'%0A'}"
+         versionJson="${versionJson//$'\r'/'%0D'}"
          echo "Mostrando Json"
          echo "$((versionJson))"
          echo "Despues de mostrar Json"
