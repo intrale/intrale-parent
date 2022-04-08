@@ -19,71 +19,24 @@ jobs:
           distribution: 'temurin'
           java-package: jdk # (jre, jdk, or jdk+fx) - defaults to jdk
           architecture: x64 # (x64 or x86) - defaults to x64    
-    - name: New Version definition
-      run: |
-         versionJson=`cat ./version.json`
-         echo "Fix Json"
-         versionJson="${versionJson//'%'/'%25'}"
-         versionJson="${versionJson//$'\n'/'%0A'}"
-         versionJson="${versionJson//$'\r'/'%0D'}"
-         echo "Mostrando valor version"
-         echo '${{ fromJson($((versionJson))).version }}'
-         echo "Mostrando Json"
-         echo "$((versionJson))"
-         echo "Despues de mostrar Json"
-         echo "VERSION_JSON=$((versionJson))" >> $GITHUB_ENV
     - name: Version definition
-      env:
-        REL_PARENT: ${{ secrets.REL_PARENT }}
-        REL_PARENT: ${{ secrets.REL_PARENT }}
-        EVO_PARENT: ${{ secrets.EVO_PARENT }}
-        REV_PARENT: ${{ secrets.REV_PARENT }}
       run: |
-        echo "REV_PARENT=$(($REV_PARENT+1))" >> $GITHUB_ENV
-        if [[ $REV_PARENT > 21 ]]; then
-          echo "REV_PARENT=0" >> $GITHUB_ENV 
-          echo "EVO_PARENT=$(($EVO_PARENT+1))" >> $GITHUB_ENV
-        fi
-        if [[ $EVO_PARENT > 11 ]]; then
-          echo "EVO_PARENT=0" >> $GITHUB_ENV 
-          echo "REL_PARENT=$(($REL_PARENT+1))" >> $GITHUB_ENV
-        fi
-        echo "REL_PARENT=$(($REL_PARENT))" >> $GITHUB_ENV
-        echo "EVO_PARENT=$(($EVO_PARENT))" >> $GITHUB_ENV
-        echo "VER_PARENT=${REL_PARENT}.${EVO_PARENT}.${REV_PARENT}" >> $GITHUB_ENV
-        echo "VER_PARENT_TEXT=${REL_PARENT}_${EVO_PARENT}_${REV_PARENT}" >> $GITHUB_ENV
-    - name: Save REL_PARENT
-      uses: hmanzur/actions-set-secret@v2.0.0
-      with:
-        name: 'REL_PARENT'
-        value: ${{ env.REL_PARENT }}
-        repository: 'intrale'
-        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
-        org: true
-        visibility: 'all'
-    - name: Save EVO_PARENT
-      uses: hmanzur/actions-set-secret@v2.0.0
-      with:
-        name: 'EVO_PARENT'
-        value: ${{ env.EVO_PARENT }}
-        repository: 'intrale'
-        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
-        org: true
-        visibility: 'all'
-    - name: Save REV_PARENT
-      uses: hmanzur/actions-set-secret@v2.0.0
-      with:
-        name: 'REV_PARENT'
-        value: ${{ env.REV_PARENT }}
-        repository: 'intrale'
-        token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
-        org: true
-        visibility: 'all'
+         echo "VERSION=0" >> $GITHUB_ENV
+    - name: Get Compile Number
+      run: |
+         COMPILE_NUMBER=`cat ./compile.number`
+         echo "COMPILE_NUMBER=$(($COMPILE_NUMBER+1))" >> $GITHUB_ENV
+    - name: Version target definition
+      run: |
+        echo "VERSION_TARGET=${env.VERSION}.${env.COMPILE_NUMBER}" >> $GITHUB_ENV
+    - name: Tag definition
+      run: |
+        echo "TAG=${env.VERSION}_${env.COMPILE_NUMBER}" >> $GITHUB_ENV
     - name: Save VER_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
       with:
         name: 'VER_PARENT'
-        value: ${{ env.VER_PARENT }}
+        value: ${{ env.VERSION_TARGET }}
         repository: 'intrale'
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}
         org: true   
@@ -93,15 +46,15 @@ jobs:
         MAVEN_SERVER_USERNAME: ${{ secrets.MAVEN_SERVER_USERNAME }}
         MAVEN_SERVER_PASSWORD: ${{ secrets.MAVEN_SERVER_PASSWORD }}
       run: |
-        sed -i "s/DEV_PARENT/${VER_PARENT}/gi" pom.xml
+        sed -i "s/DEV_PARENT/${VERSION_TARGET}/gi" pom.xml
         mkdir -p ~/.m2
         echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
         mvn -e -X deploy
     - name: Tag Branch  
       uses: rickstaa/action-create-tag@v1
       with:
-        tag: "VER_${{ env.VER_PARENT_TEXT }}"
-        message: "VER_${{ env.VER_PARENT_TEXT }}"
+        tag: "VER_${{ env.TAG }}"
+        message: "VER_${{ env.TAG }}"
     - name: Delete old packages
       uses: actions/delete-package-versions@v3
       with:
