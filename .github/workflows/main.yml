@@ -46,7 +46,9 @@ jobs:
         COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}    
       run: |
         git pull
+        echo "COMPILE NUMBER:${COMPILE_NUMBER} => ./compile.number"
         echo "${COMPILE_NUMBER}" > ./compile.number
+        echo "FIN COMPILE NUMBER:${COMPILE_NUMBER} => ./compile.number"
     - name: Commit files
       env:
         VERSION_TARGET: ${{ env.VERSION_TARGET }}    
