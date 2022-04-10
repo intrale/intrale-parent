@@ -22,6 +22,7 @@ jobs:
     - name: Version definition
       run: |
          echo "VERSION=0" >> $GITHUB_ENV
+         echo "FEATURE=1" >> $GITHUB_ENV
     - name: Get Compile Number
       run: |
          COMPILE_NUMBER=`cat ./compile.number`
@@ -29,15 +30,17 @@ jobs:
     - name: Version target definition
       env:
         VERSION: ${{ env.VERSION }}
+        FEATURE: ${{ env.FEATURE }}
         COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}
       run: |
-        echo "VERSION_TARGET=${VERSION}.${COMPILE_NUMBER}" >> $GITHUB_ENV
+        echo "VERSION_TARGET=${VERSION}.${FEATURE}.${COMPILE_NUMBER}" >> $GITHUB_ENV
     - name: Tag definition
       env:
         VERSION: ${{ env.VERSION }}
+        FEATURE: ${{ env.FEATURE }}
         COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}    
       run: |
-        echo "TAG=${VERSION}_${COMPILE_NUMBER}" >> $GITHUB_ENV
+        echo "TAG=${VERSION}_${FEATURE}_${COMPILE_NUMBER}" >> $GITHUB_ENV
     - name: Override compile number
       env:
         COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}    
@@ -71,8 +74,6 @@ jobs:
         mkdir -p ~/.m2
         echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
         mvn -e -X deploy
-    - name: Download source code
-      uses: actions/checkout@v3        
     - name: Tag Branch  
       uses: rickstaa/action-create-tag@v1
       with:
@@ -86,9 +87,3 @@ jobs:
         package-name: 'ar.com.intrale.parent'
         min-versions-to-keep: 3
         token: ${{ secrets.MAVEN_SERVER_PASSWORD }}        
-    - name: Call intrale-commons recompile with new version of parent
-      run: |
-         curl -X POST https://api.github.com/repos/intrale/intrale-core/dispatches \
-          -H 'Accept: application/vnd.github.everest-preview+json' \
-          -u ${{ secrets.MAVEN_SERVER_PASSWORD }} \
-          --data '{"event_type": "parent_new_version", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
