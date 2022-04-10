@@ -48,10 +48,12 @@ jobs:
         git pull
         echo "${COMPILE_NUMBER}" > ./compile.number
     - name: Commit files
+      env:
+        VERSION_TARGET: ${{ env.VERSION_TARGET }}    
       run: |
         git config --local user.email "github-actions@users.noreply.github.com"
         git config --local user.name "github-actions"
-        git commit -m "[bot]Compile number definition" -a
+        git commit -m "[bot]Compile version ${VERSION_TARGET}" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
