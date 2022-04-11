@@ -45,10 +45,12 @@ jobs:
       env:
         COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}    
       run: |
-        git pull
-        echo "COMPILE NUMBER:${COMPILE_NUMBER} => ./compile.number"
+        echo "Contenido compile.number"
+        cat ./compile.number
+        echo "Variable COMPILE NUMBER:${COMPILE_NUMBER} => ./compile.number"
         echo "${COMPILE_NUMBER}" > ./compile.number
-        echo "FIN COMPILE NUMBER:${COMPILE_NUMBER} => ./compile.number"
+        echo "Contenido compile.number sobreescrito"
+        cat ./compile.number
     - name: Commit files
       env:
         VERSION_TARGET: ${{ env.VERSION_TARGET }}    
