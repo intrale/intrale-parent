@@ -57,11 +57,7 @@ jobs:
         git config --local user.name "github-actions"
         git commit -m "[bot]Compile version ${VERSION_TARGET}" -a
         git push
-    - name: Tag Branch  
-      uses: rickstaa/action-create-tag@v1
-      with:
-        tag: "VER_${{ env.TAG }}"
-        message: "VER_${{ env.TAG }}"
+        git tag -a "VER_${{ env.TAG }}" -m "VER_${{ env.TAG }}"
     - name: Save VER_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
       with:
