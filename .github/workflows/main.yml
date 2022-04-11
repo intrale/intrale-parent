@@ -61,6 +61,7 @@ jobs:
         git push
         echo "Generacion del tag"
         git tag -a VER_${{ env.TAG }} -m 'VER_${{ env.TAG }}'
+        git push
         echo "Finalizando interaccion con fuentes"
     - name: Save VER_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
