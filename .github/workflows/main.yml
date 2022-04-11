@@ -43,26 +43,25 @@ jobs:
         echo "TAG=${VERSION}_${FEATURE}_${COMPILE_NUMBER}" >> $GITHUB_ENV
     - name: Override compile number
       env:
-        COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}    
+        COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}  
+        VERSION_TARGET: ${{ env.VERSION_TARGET }}         
       run: |
+        git pull
         echo "Contenido compile.number"
         cat ./compile.number
         echo "Variable COMPILE NUMBER:${COMPILE_NUMBER} => ./compile.number"
         echo "${COMPILE_NUMBER}" > ./compile.number
         echo "Contenido compile.number sobreescrito"
         cat ./compile.number
-    - name: Commit files
-      env:
-        VERSION_TARGET: ${{ env.VERSION_TARGET }}    
-      run: |
         git config --local user.email "github-actions@users.noreply.github.com"
         git config --local user.name "github-actions"
         git commit -m "[bot]Compile version ${VERSION_TARGET}" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
+        git push
+    - name: Tag Branch  
+      uses: rickstaa/action-create-tag@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        tag: "VER_${{ env.TAG }}"
+        message: "VER_${{ env.TAG }}"
     - name: Save VER_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
       with:
@@ -81,11 +80,6 @@ jobs:
         mkdir -p ~/.m2
         echo "<settings><servers><server><id>github</id><username>${MAVEN_SERVER_USERNAME}</username><password>${MAVEN_SERVER_PASSWORD}</password></server></servers></settings>" > ~/.m2/settings.xml
         mvn -e -X deploy
-    - name: Tag Branch  
-      uses: rickstaa/action-create-tag@v1
-      with:
-        tag: "VER_${{ env.TAG }}"
-        message: "VER_${{ env.TAG }}"
     - name: Delete old packages
       uses: actions/delete-package-versions@v3
       with:
