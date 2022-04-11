@@ -53,11 +53,15 @@ jobs:
         echo "${COMPILE_NUMBER}" > ./compile.number
         echo "Contenido compile.number sobreescrito"
         cat ./compile.number
+        echo "Commit version actual"
         git config --local user.email "github-actions@users.noreply.github.com"
         git config --local user.name "github-actions"
         git commit -m "[bot]Compile version ${VERSION_TARGET}" -a
+        echo "Push en repo"
         git push
+        echo "Generacion del tag"
         git tag -a VER_${{ env.TAG }} -m 'VER_${{ env.TAG }}'
+        echo "Finalizando interaccion con fuentes"
     - name: Save VER_PARENT
       uses: hmanzur/actions-set-secret@v2.0.0
       with:
