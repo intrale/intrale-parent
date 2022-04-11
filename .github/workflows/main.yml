@@ -25,6 +25,7 @@ jobs:
          echo "FEATURE=1" >> $GITHUB_ENV
     - name: Get Compile Number
       run: |
+         git pull
          COMPILE_NUMBER=`cat ./compile.number`
          echo "COMPILE_NUMBER=$(($COMPILE_NUMBER+1))" >> $GITHUB_ENV
     - name: Version target definition
@@ -46,7 +47,6 @@ jobs:
         COMPILE_NUMBER: ${{ env.COMPILE_NUMBER }}  
         VERSION_TARGET: ${{ env.VERSION_TARGET }}         
       run: |
-        git pull
         echo "Contenido compile.number"
         cat ./compile.number
         echo "Variable COMPILE NUMBER:${COMPILE_NUMBER} => ./compile.number"
