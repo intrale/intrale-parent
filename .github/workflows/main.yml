@@ -72,6 +72,7 @@ jobs:
         echo "Finalizando interaccion con fuentes"        
     - name: Deploy to Github Package Registry
       env:
+        VERSION_TARGET: ${{ env.VERSION_TARGET }}
         MAVEN_SERVER_USERNAME: ${{ secrets.MAVEN_SERVER_USERNAME }}
         MAVEN_SERVER_PASSWORD: ${{ secrets.MAVEN_SERVER_PASSWORD }}
       run: |
